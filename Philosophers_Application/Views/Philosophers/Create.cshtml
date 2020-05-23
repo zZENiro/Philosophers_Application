@@ -1,0 +1,68 @@
+﻿@using Philosophers_Application.ModelViews
+@model PhilosopherModelView
+
+<h1> Создание записи </h1>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form method="post" asp-controller="Philosophers" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="TypedName" class="control-label"></label>
+                <input asp-for="TypedName" class="form-control" />
+                <span asp-validation-for="TypedName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <select size="5" asp-for="SelectedCountry" asp-items=@Model.Countries>
+                    @foreach (var country in @Model.Countries)
+                    {
+                        <option value=@country.Text>@country.Text</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select multiple="" size="5" asp-for="SelectedDirections" asp-items=@Model.Directions>
+                    @foreach (var direction in @Model.Directions)
+                    {
+                        <option value=@direction.Text>@direction.Text</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">На главную</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $('select[multiple] option').on('mousedown', function (e) {
+            var $this = $(this),
+                that = this,
+                scroll = that.parentElement.scrollTop;
+
+            e.preventDefault();
+            $this.prop('selected', !$this.prop('selected'));
+
+            setTimeout(function () {
+                that.parentElement.scrollTop = scroll;
+            }, 0);
+
+            return false;
+        });
+    </script>
+}
+

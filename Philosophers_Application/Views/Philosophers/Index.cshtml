@@ -1,0 +1,73 @@
+﻿@using Philosophers_Application.ModelViews
+@model PhilosophersModelView
+
+<h1>Список философов</h1>
+
+<p>
+    <a href="/Philosophers/Create">Добавить философа</a>
+</p>
+
+<form method="get" asp-controller="Philosophers" asp-action="Index">
+    <p>
+        Имя: <input type="text" name="SearchLine" />
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Philosophers[0].PhilosopherName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Philosophers[0].PhilosopherDirection)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Philosophers[0].Country)
+            </th>
+
+            <th>
+
+            </th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.Philosophers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhilosopherName)
+                </td>
+
+                <td>
+                    @foreach (var direction in item.PhilosopherDirection)
+                    {
+                        <p>@direction.Direction.DirectionName.ToString()</p>
+                    }
+                </td>
+
+                <td>
+                    @item.Country.CountryName.ToString()
+                </td>
+
+                <th>
+                    <form method="post" asp-controller="Philosophers" asp-action="Delete" asp-route-id="@item.Id">
+                        <div>
+                            <input type="submit" value="Delete" class="btn btn-primary" />
+                        </div>
+                    </form>
+
+                    <div class="btn btn-primary">
+                        <a style="color:aliceblue" asp-action="Edit" asp-route-id="@item.Id" >Edit</a>
+                    </div>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
