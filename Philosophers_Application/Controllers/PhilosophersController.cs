@@ -32,9 +32,7 @@ namespace Philosophers_Application.Controllers
                 .ToListAsync();
 
             if (searchline != null)
-            {
                 philosphers = philosphers.Where(p => p.PhilosopherName.Contains(searchline)).ToList();
-            }
 
             var philosophersmv = new PhilosophersModelView() { Philosophers = philosphers };
 

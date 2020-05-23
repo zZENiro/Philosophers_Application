@@ -19,6 +19,7 @@ namespace Philosophers_Application.Models
         public string PhilosopherName { get; set; }
         
         public int CountryId { get; set; }
+        [Required]
         public Country Country { get; set; }
 
         public List<PhilosopherDirection> PhilosopherDirection { get; set; }
